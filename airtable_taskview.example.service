@@ -5,7 +5,7 @@ After=network.target
 [Service]
 User=username
 WorkingDirectory=/path/to/repo
-ExecStart=/path/to/repo/airtable_taskview.py
+ExecStart=/usr/bin/python3 /path/to/repo/airtable_taskview.py
 Restart=on-failure
 Type=simple
 StandardOutput=journal
