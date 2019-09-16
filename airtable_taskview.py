@@ -60,7 +60,7 @@ def index():
         return "<pre>No tasks!</pre>"
 
     records = sorted(
-        records, key=lambda x: isotimestamp(x["fields"]["Created"]), reverse=True
+        records, key=lambda x: isotimestamp(x["fields"]["Created"])
     )
     tasklist = []
     for task in records:
@@ -69,18 +69,21 @@ def index():
         else:
             status = task["fields"]["Status"]
         created_date = (
-            isotimestamp(task["fields"]["Created"]).date().strftime("%A %B %d, %Y")
+            isotimestamp(task["fields"]["Created"]).date().strftime("%m/%d/%Y")
         )
 
         tasklist.append(
             "- "
             + task["fields"]["Name"]
-            + " (created on "
+            + " <small>(created "
             + created_date
-            + ") / <strong>"
+            + ")</small> / <strong>"
             + status
             + "</strong>"
         )
+
+        if status == 'Done':
+            tasklist[-1] = '<s>' + tasklist[-1] + '</s>'
 
     return_str = "<pre>Task List\n"
     return_str += "----------\n\n"
